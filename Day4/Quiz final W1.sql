@@ -23,9 +23,9 @@ BEGIN--BEGIN PROCEDURE
                 @productId,
                 @orderQty,
                 @stockedQty,
-                GETDATE(), --GET ORDER DATE FROM DATE NOW
-                DATEADD(day,@dayToManufacture,GETDATE()), --Make Enddate base on product.daytomanufacture and startdate
-                DATEADD(day,@dayToManufacture,GETDATE())  -- make due date same as enddate
+                @startDate,
+                DATEADD(day,@dayToManufacture,@startDate), --Make Enddate base on product.daytomanufacture and startdate
+                DATEADD(day,@dayToManufacture,@startDate)  -- make due date same as enddate
             )
         PRINT 'Inserting to WorkOrder with productId '+CAST(@productId as NVARCHAR(25))+' has been succesfully'
         COMMIT TRANSACTION
@@ -109,3 +109,4 @@ BEGIN--BEGIN PROCEDURE
     END CATCH
     -- End try catch for transaction Production.WorOrderRouting
 END --Procedure
+
